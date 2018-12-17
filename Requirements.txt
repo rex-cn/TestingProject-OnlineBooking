@@ -1,0 +1,11 @@
+  Functional requirements
+
+1.      The system should have a booking function that allows customer service staff to book a room. The mandatory fields include name, phone, email, check-in date and check-out date.
+
+2.      The system should allow customer service staff to cancel a booking.
+
+3.      Once customers check out, the booking cannot be cancelled.
+
+4.      Create unit tests for above commands
+
+5.      Please upload your source code to an online repositories (Github or BitBucket) and share the project with me (lumeil@groupfour.com.au)
