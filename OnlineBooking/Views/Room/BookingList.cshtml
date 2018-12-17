@@ -1,0 +1,165 @@
+﻿@model IEnumerable<OnlineBookingModel.BookingRecordModel>
+
+@{
+    ViewBag.Title = "BookingList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/artDialog/jquery.artDialog.js"></script>
+<link href="~/Scripts/artDialog/skins/artDialog.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    var CancelBooking = function (id) {
+        artDialog({
+            content: "Confirm Cancel?", lock: true, icon: "question", title: "Confirm", ok: function () {
+                $.post("/api/RoomAction/Cancel", { bookId: id }, function (result) {
+                    if (result == 0)
+                        artDialog({ title: 'Success', lock: true, content: 'Booking Cancelled', icon: 'succeed', ok: true });
+                    else
+                        artDialog({ title: 'Fail', lock: true, content: 'Cancel Failed', icon: 'error', ok: true });
+                });
+            }, cancel: true
+        });
+    };
+
+    var showBookDialog = function () {
+        artDialog({
+            title: 'Add Booking', content: $("#divAddBooking")[0], lock: true, button: [{
+                name: "Prev",
+                disabled: true,
+                callback: function () {
+                    $("#divBookingInfoPart2").hide();
+                    $("#divBookingInfoPart1").show();
+                    this.button({ name: "Prev", disabled: true }).button({ name: "Next", disabled: false }).button({ name: "Save", disabled: true });
+                    return false;
+                }
+            }, {
+                name: "Next",
+                callback: function () {
+                    $("#divBookingInfoPart2").show();
+                    $("#divBookingInfoPart1").hide();
+                    this.button({ name: "Next", disabled: true }).button({ name: "Prev", disabled: false }).button({ name: "Save", disabled: false });
+                    return false;
+                }
+            }, {
+                name: "Save",
+                disabled: true,
+                focus: true,
+                callback: function () {
+                    var roomId = $("#selAvailableRooms").val();
+                    var customerName = $("#txtCustomerName").val();
+                    var customerMobile = $("#txtCustomerMobile").val();
+                    var checkinDate = $("#txtCheckinDate").val();
+                    var checkoutDate = $("#txtCheckoutDate").val();
+                    $.post("/api/RoomAction/Booking", { roomId: roomId, customerName: customerName, customerMobile: customerMobile, checkinDate: checkinDate, checkoutDate: checkoutDate }, function (result) {
+                        window.location.reload();
+                    });
+                }
+            }, {
+                name: "Close",
+            }]
+        });
+    };
+
+    var getAvailableRoom = function () {
+        var checkinDate = $("#txtCheckinDate").val();
+        var checkoutDate = $("#txtCheckoutDate").val();
+        $.post("/api/RoomAction/GetAvailableRoom", { checkinDate: checkinDate, checkoutDate, checkoutDate }, function (result) {
+            var rl = $.parseJSON(result);
+            $("#selAvailableRooms option").remove();
+            for (var i = 0; i < rl.length; i++) {
+                $("#selAvailableRooms").append("<option value='" + rl[i].RoomId + "'>" + rl[i].RoomCode + "--" + rl[i].RoomTypeName + "</option>");
+            }
+        });
+    };
+</script>
+
+
+<table class="table" style="margin-top:10px;border:solid 1px lightgray; border-collapse:collapse; width:60%">
+    <tr style="text-align:center">
+        <th colspan="8" style="text-align:center">Booking List</th>
+    </tr>
+    <tr style="text-align:center">
+        <th style="text-align:center">RoomCode</th>
+        <th style="text-align:center">CustomerName</th>
+        <th style="text-align:center">CustomerMobile</th>
+        <th style="text-align:center">CheckinDate</th>
+        <th style="text-align:center">CheckoutDate</th>
+        <th style="text-align:center">OperationStaffName</th>
+        <th style="text-align:center">OperationTime</th>
+        <th style="text-align:center">Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="text-align:center">
+            <td>
+                @item.RoomCode
+            </td>
+            <td>
+                @item.CustomerName
+            </td>
+            <td>
+                @item.CustomerMobile
+            </td>
+            <td>
+                @item.CheckinDate.ToString("MM-dd")
+            </td>
+            <td>
+                @item.CheckoutDate.ToString("MM-dd")
+            </td>
+            <td>
+                @item.OperationStaffName
+            </td>
+            <td>
+                @item.OperationTime
+            </td>
+            <td>
+                @if (item.CheckinDate > DateTime.Today)
+                {
+                    <input type="button" value="Cancel" onclick="CancelBooking(@item.Id);" />
+                }
+                else
+                {
+                    <label>无法取消</label>
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+<div style="display:none; width:400px;height:130px;  " id="divAddBooking">
+    <div id="divBookingInfoPart1">
+        <div style="margin-top:10px;">
+            <label>Checkin Date</label>
+            <input type="text" onchange="DisableCustomerInfo();" value="" id="txtCheckinDate" style="width:100px;" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd',minDate:'%y-%M-%d' });" />
+        </div>
+        <div style="margin-top:10px;">
+            <label>Checkout Date</label>
+            <input type="text" onchange="DisableCustomerInfo();" value="" id="txtCheckoutDate" style="width:100px;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-%d',maxDate:'@DateTime.Today.AddMonths(1).ToShortDateString()'});" />
+        </div>
+
+    </div>
+    <div id="divBookingInfoPart2" style="display:none">
+        <div style="margin-top:10px;" id="divBookingUser">
+            <div>
+                <label>Customer Name</label>
+                <input type="text" id="txtCustomerName" value="" style="width:100px;" placeholder="Username" />
+            </div>
+            <div style="margin-top:10px;">
+                <label>Customer Mobile</label>
+                <input id="txtCustomerMobile" type="text" value="" style="width:100px;" placeholder="Mobile" />
+            </div><div style="margin-top:10px;">
+    <label>Customer Email</label>
+    <input id="txtCustomerEmail" type="text" value="" style="width:100px;" placeholder="Email" />
+</div>
+            <div style="margin-top:10px;">
+                <label>Available Room</label>
+                <select id="selAvailableRooms" style="width:100px; height:22px;"></select>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <input type="button" onclick="javascript: showBookDialog();" title="" value="Add" />
+</div>

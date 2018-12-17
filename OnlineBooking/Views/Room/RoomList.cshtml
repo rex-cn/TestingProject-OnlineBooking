@@ -1,0 +1,39 @@
+﻿@model IEnumerable<OnlineBookingModel.RoomModel>
+
+    @{
+    Layout =  "~/Views/Shared/_Layout.cshtml";
+    }
+     
+
+  
+        <table class="table" style="margin-top:10px;border:solid 1px lightgray; border-collapse:collapse; width:60%">
+            <tr style="text-align:center">
+                <th colspan="4" style="text-align:center">Room List</th>
+            </tr>
+            <tr style="text-align:center">
+                <th style="text-align:center">RoomCode</th>
+                <th style="text-align:center">RoomSize</th>
+                <th style="text-align:center">RoomType</th>
+                <th style="text-align:center">Action</th>
+            </tr>
+
+            @foreach (var item in Model) {
+            <tr style="text-align:center">
+                <td>
+                    @item.RoomCode
+                </td>
+                <td>
+                    @item.RoomSize
+                </td>
+                <td>
+                    @item.RoomTypeName
+                </td>
+                <td>
+
+                    @Html.ActionLink("Details", "RoomDetail", new { id=item.RoomId }) 
+                </td>
+            </tr>
+            }
+
+        </table>
+   

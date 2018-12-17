@@ -1,0 +1,38 @@
+﻿<html>
+<head>
+    <title>  Rooms List</title>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        var uri = "/api/RoomList";
+        $(document).ready(function () {
+            $.getJSON(uri)
+         .done(function (data) {
+             // On success, 'data' contains a list of products.
+             $.each(data, function (key, item) {
+                 // Add a list item for the product.
+                 $('#tbRoomList tr').remove();
+                 $("#tbRoomList").append("<tr><td>" + item.RoomCode + "</td><td>" + item.RoomSize + "</td><td>" + item.RoomTypeName + "</td><a href='RoomDetail.html?id=" + item.Id + "'>Details</a><td></tr>")
+             });
+         });
+        });
+    </script>
+</head>
+<body>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="4"></th>
+            </tr>
+            <tr>
+                <th>RoomCode</th>
+                <th>RoomSize(sqm)</th>
+                <th>RoomType</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tbRoomList"></tbody>
+    </table>
+</body>
+</html>

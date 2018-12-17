@@ -1,0 +1,71 @@
+﻿@model OnlineBookingModel.RoomDetailModel
+
+@{
+    ViewBag.Title = "BookingList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table" style="margin-top:10px;border:solid 1px lightgray; border-collapse:collapse; width:60%">
+    <tr style="text-align:center">
+        <th colspan="3" style="text-align:center">Room Info</th>
+    </tr>
+    <tr style="text-align:center">
+        <th style="text-align:center">RoomCode</th>
+        <th style="text-align:center">RoomSize</th>
+        <th style="text-align:center">RoomType</th>
+    </tr>
+    <tr style="text-align:center">
+        <td>
+            @Model.RoomCode
+        </td>
+        <td>
+            @Model.RoomSize
+        </td>
+        <td>
+            @Model.RoomTypeName
+        </td>
+
+    </tr>
+</table>
+<table class="table" style="margin-top:10px;border:solid 1px lightgray; border-collapse:collapse; width:60%">
+    <tr style="text-align:center">
+        <th colspan="6" style="text-align:center">Room BookingList</th>
+    </tr>
+    <tr style="text-align:center">
+        <th style="text-align:center">CustomerName</th>
+        <th style="text-align:center">CustomerMobile</th>
+        <th style="text-align:center">CheckinDate</th>
+        <th style="text-align:center">CheckoutDate</th>
+        <th style="text-align:center">OperationStaffName</th>
+        <th style="text-align:center">OperationTime</th>
+    </tr>
+
+    @foreach (var item in Model.RoomBookingRecord)
+    {
+        <tr style="text-align:center">
+            <td>
+                @item.CustomerName
+            </td>
+            <td>
+                @item.CustomerMobile
+            </td>
+            <td>
+                @item.CheckinDate.ToString("MM-dd")
+            </td>
+            <td>
+                @item.CheckoutDate.ToString("MM-dd")
+            </td>
+            <td>
+                @item.OperationStaffName;
+            </td>
+            <td>
+                @item.OperationTime.ToString("MM-dd HH:mm")
+            </td>
+
+        </tr>
+    }
+
+</table> 
+@Html.ActionLink("Back to List", "RoomList")
+
