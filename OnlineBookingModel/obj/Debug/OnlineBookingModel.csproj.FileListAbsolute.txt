@@ -2,3 +2,7 @@ D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingModel\bin\Debug\
 D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingModel\bin\Debug\OnlineBookingModel.pdb
 D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingModel\obj\Debug\OnlineBookingModel.dll
 D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingModel\obj\Debug\OnlineBookingModel.pdb
+D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingModel\bin\Debug\nunit.framework.dll
+D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingModel\bin\Debug\nunit.framework.pdb
+D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingModel\bin\Debug\nunit.framework.xml
+D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingModel\obj\Debug\OnlineBookingModel.csprojResolveAssemblyReference.cache

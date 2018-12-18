@@ -20,12 +20,17 @@ namespace OnlineBooking
             config.Routes.MapHttpRoute(
              name: "Booking",
              routeTemplate: "api/{controller}/Booking",
-             defaults: new { ApiController = "RoomAction",Action="Booking"}
+             defaults: new { ApiController = "RoomAction", Action = "Booking" }
          );
             config.Routes.MapHttpRoute(
             name: "GetAvailableRoom",
             routeTemplate: "api/{controller}/GetAvailableRoom",
             defaults: new { ApiController = "RoomAction", Action = "GetAvailableRoom" }
+        );
+            config.Routes.MapHttpRoute(
+            name: "Login",
+            routeTemplate: "api/{controller}/Login",
+            defaults: new { ApiController = "SharedAction", Action = "Login" }
         );
         }
     }

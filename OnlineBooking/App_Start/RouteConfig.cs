@@ -15,7 +15,7 @@ namespace OnlineBooking
 
             routes.MapRoute("HomePage",
                    "",
-                   new { controller = "Room", action = "RoomList" },
+                   new { controller = "Shared", action = "Login" },
                    new[] { "OnlineBooking.Controllers" });
 
             routes.MapRoute(

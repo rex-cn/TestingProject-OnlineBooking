@@ -1,0 +1,90 @@
+﻿
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - Sweetharbour Inn</title>
+   
+        <script src="/Scripts/jquery-ui-1.12.1.custom/jquery-1.12.4.js" charset="utf-8"></script>
+        <script src="/Scripts/artDialog/jquery.artDialog.js"></script>
+        <link href="/Scripts/artDialog/skins/artDialog.css" rel="stylesheet" type="text/css" />
+    <script src="/Scripts/jquery.validator/jquery.validationEngine-en.js" charset="utf-8"></script>
+    <script src="/Scripts/jquery.validator/jquery.validationEngine.js" charset="utf-8"></script>
+    <link href="/Scripts/jquery.validator/validationEngine.jquery.css" rel="stylesheet" />
+    <script src="~/Scripts/md5.min.js"></script>
+    <script type="text/javascript">
+        var userLogin = function () {
+            if ($("#frmLogin").validationEngine("validate")) {
+                $.post("/api/SharedAction/Login", { username: $("#txtUserName").val(), encryptedPwd: md5($("#txtUserPwd").val()) }, function (result) {
+                    if (result == 0)
+                        window.location.href = "/Room/RoomList";
+                    else
+                        artDialog({
+                            content: "wrong username or password",
+                            icon: "error",
+                            title: "Login Fail", lock: true, ok: true
+                        });
+                });
+            }
+        };
+        $(document).ready(function () {
+            $("#frmLogin").validationEngine({
+                validationEventTriggers: "blur", //触发的事件   validationEventTriggers:"blur",
+                inlineValidation: false,//是否即时验证，false为提交表单时验证,默认true
+                success: false,//为true时即使有不符合的也提交表单,false表示只有全部通过验证了才能提交表单,默认false
+                promptPosition: "upright",//提示所在的位置，topLeft, topRight, bottomLeft,  centerRight, bottomRight
+                //failure : function() { alert("验证失败，请检查。");  }//验证失败时调用的函数
+                //success : function() { callSuccessFunction() },//验证通过时调用的函数
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+               
+                <label css="navbar-brand" style="color:#dddddd; margin-top:10px;font-size:22px;">SweetCornor Inn</label>
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <h4>Staff Login</h4>
+        <hr />
+        <form id="frmLogin">
+            <div style="margin-top:10px;" id="divBookingUser">
+                <div>
+                    <label>Customer Name</label>
+                    <input type="text" id="txtUserName" class="validate[required]" value="" style="width:150px;" />
+                </div>
+                <div style="margin-top:10px;">
+                    <label>Customer Mobile</label>
+                    <input id="txtUserPwd" type="text" class="validate[required]" value="" style="width:150px;" />
+                </div>
+            </div>
+            <input type="button" value="Login" onclick="userLogin()" />
+        </form>
+     
+        <footer style="position:fixed; right:0px; bottom:0px; width:100%;  ">
+            <div style="width:100%; height:50px;background-color: lightgray; text-align:center; font-size:18px; color:#333333; padding-top:12px;">
+                <div>Just a testing project</div>
+            </div>
+        </footer>
+    </div>
+ 
+</body>
+</html>

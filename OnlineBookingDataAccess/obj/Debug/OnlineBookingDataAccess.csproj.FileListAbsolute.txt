@@ -7,3 +7,6 @@ D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingDataAccess\bin\D
 D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingDataAccess\obj\Debug\OnlineBookingDataAccess.csprojResolveAssemblyReference.cache
 D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingDataAccess\obj\Debug\OnlineBookingDataAccess.dll
 D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingDataAccess\obj\Debug\OnlineBookingDataAccess.pdb
+D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingDataAccess\bin\Debug\nunit.framework.dll
+D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingDataAccess\bin\Debug\nunit.framework.pdb
+D:\P.ProjectMelbourne\TestingProject-OnlineBooking\OnlineBookingDataAccess\bin\Debug\nunit.framework.xml

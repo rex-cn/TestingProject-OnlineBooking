@@ -74,7 +74,8 @@ namespace OnlineBookingDataAccess
                " from Res_Rooms r" +
                " left join Res_RoomType rt on r.RoomType=rt.Id" +
                " where r.id not in(select distinct roomid from Act_BookingRecord" +
-                    " where (CheckinDate between @fromDate and @toDate or CheckoutDate between @fromDate and @toDate)" +
+                    " where (CheckinDate between @fromDate and @toDate or CheckoutDate between @fromDate and @toDate"+
+                    " or @fromDate between CheckinDate and CheckoutDate or  @toDate between CheckinDate and CheckoutDate)" +
                 " and bookingStatus=" + (int)BookingStatus.Success + ")",
                                 new SqlParameter("@fromDate", SqlDbType.DateTime) { Value = fromDate },
                                 new SqlParameter("@toDate", SqlDbType.DateTime) { Value = toDate }
